@@ -1,7 +1,9 @@
 package com.sparta.lolcome.domain.user.dto;
 
-import com.sparta.lolcome.domain.user.constant.UserStatus;
-import jakarta.validation.constraints.*;
+import com.sparta.lolcome.domain.user.constant.UserMange;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
@@ -19,13 +21,13 @@ public class SignupRequestDto {
 
     private String name;
     private String intro;
-    private UserStatus userStatus;
+    private UserMange userMange;
 
-    public SignupRequestDto(String loginId, String password, String name, String intro, UserStatus userStatus){
+    public SignupRequestDto(String loginId, String password, String name, String intro, UserMange userMange){
         this.loginId = loginId;
         this.password = password;
         this.name = name;
         this.intro = intro;
-        this.userStatus = userStatus;
+        this.userMange = userMange;
     }
 }
