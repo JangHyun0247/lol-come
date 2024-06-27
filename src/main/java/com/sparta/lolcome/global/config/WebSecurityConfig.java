@@ -68,8 +68,9 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/user/signup").permitAll() // 메인 페이지 요청 허가
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/login/**").permitAll()
+                                .requestMatchers("/api/posts/getList").permitAll()
+                                .requestMatchers("/api/post/{post_id}").permitAll()
                                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
-//                              .requestMatchers(new AntPathRequestMatcher("/api/**/getList")).permitAll()
 //                              .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
 //                              .requestMatchers("/").permitAll() // 메인 페이지 요청 허가
         );
