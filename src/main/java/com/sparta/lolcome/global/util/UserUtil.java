@@ -29,9 +29,9 @@ public class UserUtil {
         User user = userRepository.findByLoginId(loginId).orElseThrow(
                 () -> new AuthorizationFailedException("등록되지 않은 계정입니다")
         );
-        if(UserStatus.UNVERIFIED.equals(user.getUserStatus())) {
-            throw new AuthorizationFailedException("메일 인증이 필요합니다");
-        }
+//        if(UserStatus.UNAUTHORIZED.equals(user.getUserStatus())) {
+//            throw new AuthorizationFailedException("메일 인증이 필요합니다");
+//        }
         if(UserStatus.DELETED.equals(user.getUserStatus())){
             throw new AuthorizationFailedException("삭제된 계정입니다");
         }

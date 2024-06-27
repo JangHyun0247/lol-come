@@ -1,25 +1,32 @@
 package com.sparta.lolcome.domain.user.entity;
 
+import com.sparta.lolcome.domain.user.constant.UserMange;
 import com.sparta.lolcome.domain.user.constant.UserStatus;
+import com.sparta.lolcome.domain.user.dto.ProfileRequestDto;
 import com.sparta.lolcome.domain.user.dto.SignupRequestDto;
+import com.sparta.lolcome.global.util.Timestamped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
-public class User {
+public class User extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id ")
     private Long userId;
     @Column(nullable = false, unique = true)
     private String loginId;
+    @Setter
     @Column
     private String password;
     @Column
@@ -27,17 +34,36 @@ public class User {
     @Column
     private String intro;
     @Column
+    @Enumerated(EnumType.STRING)
+    private UserMange userMange;
+    @Column
+    @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
     @Setter
     @Column
     private String refreshToken;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime statusModifiedAt;
 
     public User(SignupRequestDto requestDto){
         this.loginId = requestDto.getLoginId();
-        this.password = requestDto.getPassword();
         this.name = requestDto.getName();
         this.intro = requestDto.getIntro();
-        this.userStatus = requestDto.getUserStatus();
+        this.userMange = requestDto.getUserMange();
+        this.statusModifiedAt = LocalDateTime.now();
     }
 
+    public void setStatus(UserStatus status) {
+        if(!status.equals(this.userStatus)) {
+            this.userStatus = status;
+            this.statusModifiedAt = LocalDateTime.now();
+        }
+    }
+
+    public void update(ProfileRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.intro = requestDto.getIntro();
+        this.password = requestDto.getPassword();
+    }
 }
