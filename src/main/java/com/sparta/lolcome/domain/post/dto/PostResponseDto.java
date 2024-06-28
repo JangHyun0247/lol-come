@@ -16,7 +16,7 @@ public class PostResponseDto {
     private LocalDateTime modified_at;
 
     public PostResponseDto(Post post, User user) {
-        this.postId = post.getId();
+        this.postId = post.getPostId();
         this.name = user.getName();
         this.content = post.getContent();
         this.created_at = post.getCreatedAt();

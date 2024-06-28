@@ -1,5 +1,6 @@
 package com.sparta.lolcome.domain.user.entity;
 
+import com.sparta.lolcome.domain.like.entity.Liked;
 import com.sparta.lolcome.domain.user.constant.UserMange;
 import com.sparta.lolcome.domain.user.constant.UserStatus;
 import com.sparta.lolcome.domain.user.dto.ProfileRequestDto;
@@ -12,10 +13,13 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "User")
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 public class User extends Timestamped {
@@ -45,6 +49,9 @@ public class User extends Timestamped {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime statusModifiedAt;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Liked> likedEntities = new ArrayList<>();
 
     public User(SignupRequestDto requestDto){
         this.loginId = requestDto.getLoginId();
