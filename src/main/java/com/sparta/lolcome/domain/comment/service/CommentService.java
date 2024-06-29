@@ -27,7 +27,7 @@ public class CommentService {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("선택한 게시물이 존재하지 않습니다."));
         Comment comment = commentRepository.save(new Comment(requestDto, post, user));
 
-        new CommentResponseDto(comment);
+        new CommentResponseDto(comment, user);
     }
 
     public CommentResponseDto findCommentById(Long postId, Long commentId) {

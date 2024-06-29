@@ -1,5 +1,6 @@
 package com.sparta.lolcome.domain.like.service;
 
+import com.sparta.lolcome.domain.comment.dto.CommentResponseDto;
 import com.sparta.lolcome.domain.comment.entity.Comment;
 import com.sparta.lolcome.domain.comment.repository.CommentRepository;
 import com.sparta.lolcome.domain.like.constant.LikeTypeEnum;
@@ -7,6 +8,7 @@ import com.sparta.lolcome.domain.like.dto.LikeRequestDto;
 import com.sparta.lolcome.domain.like.dto.LikeResponseDto;
 import com.sparta.lolcome.domain.like.entity.Liked;
 import com.sparta.lolcome.domain.like.repository.LikeRepository;
+import com.sparta.lolcome.domain.post.dto.PostResponseDto;
 import com.sparta.lolcome.domain.post.entity.Post;
 import com.sparta.lolcome.domain.post.repository.PostRepository;
 import com.sparta.lolcome.domain.user.entity.User;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -61,24 +64,21 @@ public class LikeService {
         }
     }
 
-    //사용자가 좋아요 한 게시물 또는 댓글 좋아요 조회
-//    public List<LikeResponseDto> myLikedConunt(LikeRequestDto likeRequestDto, User user) {
-//        List<LikeResponseDto> likedContents = new ArrayList<>();
-//
-//        if (likeRequestDto.getLikeTypeEnum() == LikeTypeEnum.POST) {
-//            List<Post> likedPosts = postRepository.findPostsLikedByUser(user.getUserId());
-//            likedPosts.forEach(post -> {
-//                likedContents.add(new LikeResponseDto(LikeTypeEnum.POST, post.getPostId(), post.getLikeCount()));
-//            });
-//        } else if (likeRequestDto.getLikeTypeEnum() == LikeTypeEnum.COMMENT) {
-//            List<Comment> likedComments = commentRepository.findCommentsLikedByUser(user.getId());
-//            likedComments.forEach(comment -> {
-//                likedContents.add(new LikeResponseDto(LikeTypeEnum.COMMENT, comment.getCommentId(), comment.getLikeCount()));
-//            });
-//        }
-//
-//        return likedContents;
-//    }
+    //좋아요 한 게시물들 조회
+    public List<PostResponseDto> getLikedPosts(User user, int page, int size) {
+        List<Post> likedPosts = likeRepository.findLikedPostsByUserId(user.getUserId(), page, size);
+        return likedPosts.stream()
+                .map(post -> new PostResponseDto(post, user))
+                .collect(Collectors.toList());
+    }
+
+    //좋아요 한 댓글들 조회
+    public Object getLikedComments(User user, int page, int size) {
+        List<Comment> likedComments = likeRepository.findLikedCommentsByUserId(user.getUserId(), page, size);
+        return likedComments.stream()
+                .map(comment -> new CommentResponseDto(comment, user))
+                .collect(Collectors.toList());
+    }
 
     //게시물 좋아요 메서드
     private void handlePostLike(LikeRequestDto likeRequestDto, User user) {
@@ -142,6 +142,4 @@ public class LikeService {
         liked.setUserId(user.getUserId());
         likeRepository.save(liked);
     }
-
-
 }

@@ -27,6 +27,7 @@ public class CommentController {
         commentService.addComment(post_id, requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("댓글이 작성이 완료되었습니다.")
                         .build()
         );
@@ -37,6 +38,7 @@ public class CommentController {
                                               @PathVariable("comment_id") Long comment_id) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("게시물의 댓글 단건 조회가 완료되었습니다.")
                         .data(commentService.findCommentById(post_id, comment_id))
                         .build()
@@ -49,12 +51,14 @@ public class CommentController {
         if (comments.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.OK)
                             .message("가장 먼저 댓글을 남겨보세요!")
                             .build()
             );
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.OK)
                             .message("게시물의 모든 댓글 조회 완료되었습니다.")
                             .data(comments)
                             .build()
@@ -70,6 +74,7 @@ public class CommentController {
         commentService.updateComment(comment_id, requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("댓글 수정이 완료되었습니다.")
                         .build()
         );
@@ -82,6 +87,7 @@ public class CommentController {
         commentService.deleteComment(comment_id, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("댓글 삭제가 완료되었습니다.")
                         .build()
         );

@@ -27,6 +27,7 @@ public class UserController {
         userService.signup(requestDto);
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("회원가입 성공")
                         .build()
         );
@@ -38,6 +39,7 @@ public class UserController {
         userService.logout(userDetailsImpl.getUser().getUserId());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("로그아웃이 완료 되었습니다.")
                         .build()
         );
@@ -51,6 +53,7 @@ public class UserController {
         userService.deleteAccount(userDetailsImpl.getUser().getLoginId(), passwordRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("회원 탈퇴가 완료되었습니다.")
                         .build()
         );

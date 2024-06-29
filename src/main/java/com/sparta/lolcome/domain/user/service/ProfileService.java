@@ -1,5 +1,6 @@
 package com.sparta.lolcome.domain.user.service;
 
+import com.sparta.lolcome.domain.like.repository.LikeRepository;
 import com.sparta.lolcome.domain.user.dto.ProfileRequestDto;
 import com.sparta.lolcome.domain.user.dto.ProfileResponseDto;
 import com.sparta.lolcome.domain.user.entity.User;
@@ -16,6 +17,8 @@ public class ProfileService {
 
     private final UserRepository repository;
     private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final LikeRepository likeRepository;
+
     // 프로필조회
     public ProfileResponseDto getProfile(UserDetailsImpl userDetails) {
 
@@ -23,7 +26,10 @@ public class ProfileService {
                  () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
          );
 
-         return new ProfileResponseDto(user);
+        Long likedPostCount = likeRepository.countLikedPostsByUserId(userDetails.getUser().getUserId());
+        Long likedCommentCount = likeRepository.countLikedCommentsByUserId(userDetails.getUser().getUserId());
+
+         return new ProfileResponseDto(user, likedPostCount, likedCommentCount);
     }
 
     // 프로필수정

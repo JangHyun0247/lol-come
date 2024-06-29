@@ -22,6 +22,7 @@ public class ProfileController {
     public ResponseEntity<HttpResponseDto> getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("프로필 조회가 완료되었습니다.")
                         .data(profileService.getProfile(userDetails))
                         .build()
@@ -33,6 +34,7 @@ public class ProfileController {
                                             @AuthenticationPrincipal UserDetailsImpl userDetails){
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("프로필 수정이 완료되었습니다.")
                         .data(profileService.updateProfile(profileRequestDto,userDetails))
                         .build()

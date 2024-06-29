@@ -41,6 +41,7 @@ public class PostController {
         if (!sortable.contains(sortBy)){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.BAD_REQUEST)
                             .message("유효하지 않은 정렬 기준입니다.")
                             .build()
             );
@@ -60,6 +61,7 @@ public class PostController {
         } catch (DateTimeParseException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.BAD_REQUEST)
                             .message("잘못된 날짜 형식입니다.")
                             .build()
             );
@@ -70,12 +72,14 @@ public class PostController {
         if (posts.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.OK)
                             .message("먼저 작성하여 소식을 알려보세요!")
                             .build()
             );
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     HttpResponseDto.builder()
+                            .status(HttpStatus.OK)
                             .message("게시물 조회가 완료 되었습니다.")
                             .data(posts)
                             .build()
@@ -87,6 +91,7 @@ public class PostController {
     public ResponseEntity<HttpResponseDto> getPost(@PathVariable Long post_id){
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("게시물 단건 조회가 완료 되었습니다.")
                         .data(postService.getPost(post_id))
                         .build()
@@ -100,6 +105,7 @@ public class PostController {
         postService.createPost(requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("게시물 작성이 완료되었습니다.")
                         .build()
         );
@@ -112,6 +118,7 @@ public class PostController {
         postService.updatePost(post_Id, requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("게시물 수정이 완료되었습니다.")
                         .build()
         );
@@ -123,6 +130,7 @@ public class PostController {
         postService.deletePost(post_Id, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
+                        .status(HttpStatus.OK)
                         .message("게시물 삭제가 완료되었습니다.")
                         .build()
         );

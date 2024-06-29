@@ -1,5 +1,6 @@
 package com.sparta.lolcome.domain.post.entity;
 
+import com.sparta.lolcome.domain.like.entity.Liked;
 import com.sparta.lolcome.domain.post.dto.PostCreateRequestDto;
 import com.sparta.lolcome.domain.post.dto.PostUpdateRequestDto;
 import com.sparta.lolcome.domain.user.entity.User;
@@ -9,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter

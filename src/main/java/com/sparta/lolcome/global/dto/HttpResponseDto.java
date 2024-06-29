@@ -1,5 +1,6 @@
 package com.sparta.lolcome.global.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,10 @@ import org.springframework.http.HttpStatus;
 @Builder
 public class HttpResponseDto {
 
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private HttpStatus status;
     private String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
 
