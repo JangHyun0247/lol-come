@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 @Builder
 public class HttpResponseDto {
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private HttpStatus status;
     private String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)

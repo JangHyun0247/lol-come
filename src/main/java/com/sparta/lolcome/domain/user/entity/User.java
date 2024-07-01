@@ -1,5 +1,6 @@
 package com.sparta.lolcome.domain.user.entity;
 
+import com.sparta.lolcome.domain.follow.entity.Follow;
 import com.sparta.lolcome.domain.user.constant.UserMange;
 import com.sparta.lolcome.domain.user.constant.UserStatus;
 import com.sparta.lolcome.domain.user.dto.ProfileRequestDto;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,7 +25,7 @@ public class User extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id ")
+    @Column(name = "user_id")
     private Long userId;
     @Column(nullable = false, unique = true)
     private String loginId;
@@ -47,6 +49,8 @@ public class User extends Timestamped {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime statusModifiedAt;
 
+//    @OneToMany(mappedBy = "user")
+//    private List<Follow> follows;
 
     public User(SignupRequestDto requestDto){
         this.loginId = requestDto.getLoginId();
