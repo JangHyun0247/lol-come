@@ -1,6 +1,9 @@
 package com.sparta.lolcome.domain.user.entity;
 
+import com.sparta.lolcome.domain.comment.entity.Comment;
 import com.sparta.lolcome.domain.follow.entity.Follow;
+import com.sparta.lolcome.domain.like.entity.Liked;
+import com.sparta.lolcome.domain.post.entity.Post;
 import com.sparta.lolcome.domain.user.constant.UserMange;
 import com.sparta.lolcome.domain.user.constant.UserStatus;
 import com.sparta.lolcome.domain.user.dto.ProfileRequestDto;
@@ -49,8 +52,17 @@ public class User extends Timestamped {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime statusModifiedAt;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Follow> follows;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follow> follows;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Liked> likes;
 
     public User(SignupRequestDto requestDto){
         this.loginId = requestDto.getLoginId();

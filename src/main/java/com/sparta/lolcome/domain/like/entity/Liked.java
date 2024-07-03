@@ -34,12 +34,8 @@ public class Liked extends Timestamped {
     private Long contentId;
 
 //    @ManyToOne
-//    @JoinColumn(name = "post_id", nullable = false)
-//    private Post post;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "comment_id", nullable = false)
-//    private Comment comment;
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private User user;
 
     public Liked(LikeRequestDto requestDto){
         this.likeTypeEnum = requestDto.getLikeTypeEnum();

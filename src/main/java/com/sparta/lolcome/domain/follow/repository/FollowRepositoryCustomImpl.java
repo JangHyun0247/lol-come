@@ -20,7 +20,6 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom{
     public List<Post> findFollowedPostsByUserId(Long userId, int page, int size){
         QFollow follow = QFollow.follow;
         QPost post = QPost.post;
-//        QUser user = QUser.user;
 
         return queryFactory
                 .select(post)

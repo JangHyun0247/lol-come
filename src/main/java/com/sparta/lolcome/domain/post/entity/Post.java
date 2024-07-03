@@ -1,5 +1,7 @@
 package com.sparta.lolcome.domain.post.entity;
 
+import com.sparta.lolcome.domain.comment.entity.Comment;
+import com.sparta.lolcome.domain.follow.entity.Follow;
 import com.sparta.lolcome.domain.like.entity.Liked;
 import com.sparta.lolcome.domain.post.dto.PostCreateRequestDto;
 import com.sparta.lolcome.domain.post.dto.PostUpdateRequestDto;
@@ -37,6 +39,9 @@ public class Post extends Timestamped {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
 
     public Post(PostCreateRequestDto requestDto) {
