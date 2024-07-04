@@ -28,7 +28,6 @@ public class LikeRepositoryCustomImpl implements LikeRepositoryCustom{
                 .select(post) //post 지정
                 .from(liked) //liked 로부터 가져올건데
                 .join(post).on(liked.contentId.eq(post.postId)) //liked 엔티티의 contentId 와 post 엔티티의 postId 매핑
-
                 // liked 엔티티의 userId 와 받은 userId 가 같고 liked 의 Enum 타입이 POST 인 조건 지정
                 .where(liked.userId.eq(userId).and(liked.likeTypeEnum.eq(LikeTypeEnum.POST)))
                 //createdAt 내림차순으로 정렬
